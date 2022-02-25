@@ -12,7 +12,6 @@ from tqdm import tqdm
 import copy
 
 def camel_to_snake(s):
-    # return ''.join(['_'+c.lower() if c.isupper() else c for c in s]).lstrip('_')
     return ''.join([' '+c.lower() if c.isupper() else c for c in s]).strip()
 
 
@@ -20,35 +19,27 @@ def generate_object_scene(args, metadata, skill_data, split='train'):
     """
     Generate scene
 
-    scene: {
-        'objA': 'airplane',
-        'n_objA': 2,
-        'answer': 2,
-        'n_distractors': 0,
-
-        'rel': None,
-        'objB': None,
-        'n_objB': None,
-        'objects': [
-            {
-                'shape': 'airplane',
-                'color': None, # => to be determined randomly
-                'is_distractor': False,
-            },
-            {
-                'shape': 'airplane',
-                'color': None,
-                'is_distractor': False,
-            },
-            ...
-        ]
-    }
-
+     {
+      "scene": "background environment for the image (e.g. empty)",
+      "skill": "which skill you are trying to generate for (e.g. object)",
+      "text": "the text prompt for this scene (e.g. a photo of two airplanes)",
+      "id": "unique id for this scene (e.g. object_train_00001)",
+      "objects": [
+        {
+         "id": "unique identifier number for this object (e.g. 0)",
+         "shape": "object to be used (e.g. airplane)",
+         "relation": "relation to any other objects based on id number (e.g. 'right_0' means right of object with id 0)",
+         "color": "color of the object (e.g. red)",
+         "scale": "size of the object (e.g. 2.5)",
+         "texture": "texture of object (e.g. plain)",
+         "rotation": "xyz rotation values for the object in degrees (e.g. [100, 50, 20])",
+         "state": "the special state of the object (e.g. 'standing' for a dog)"
+        },
+        ...
+       ]
+     }
 
     """
-    # color_names = metadata['Color']
-
-    # relation_names = metadata['Relation']
 
     obj2states = metadata['State']
 
@@ -69,10 +60,8 @@ def generate_object_scene(args, metadata, skill_data, split='train'):
                 text = copy.deepcopy(template)
 
                 if '<objA>' in template:
-                    # objA = random.choice(object_names)
                     objA = target_shape
-                    # if isinstance(objA, dict):
-                    #     objA = objA['Shape']
+                    
                     if 'human' in objA:
                         objA = metadata["characters"][objA][0]
                         text = text.replace('<objA>', 'human')
@@ -102,8 +91,6 @@ def generate_object_scene(args, metadata, skill_data, split='train'):
                         "state": None
                     }
 
-                    # if isinstance(target_shape, dict):
-                    #     obj['state'] = target_shape["State"][0]
                     if target_shape in obj2states:
                         obj['state'] = obj2states[target_shape][0]
 
@@ -129,40 +116,6 @@ def generate_object_scene(args, metadata, skill_data, split='train'):
 
 
 def generate_count_scene(args, metadata, skill_data, split='train'):
-    """
-    Generate scene
-
-    answer: 2,
-    scene: {
-        'objA': 'airplane',
-        'n_objA': 2,
-        'answer': 2,
-        'n_distractors': 0,
-
-        'rel': None,
-        'objB': None,
-        'n_objB': None,
-        'objects': [
-            {
-                'shape': 'airplane',
-                'color': None, # => to be determined randomly
-                'is_distractor': False,
-            },
-            {
-                'shape': 'airplane',
-                'color': None,
-                'is_distractor': False,
-            },
-            ...
-        ]
-    }
-
-
-    """
-    # color_names = metadata['Color']
-
-    # relation_names = metadata['Relation']
-
     obj2states = metadata['State']
 
     skill_name = skill_data["skill_name"]
@@ -189,10 +142,8 @@ def generate_count_scene(args, metadata, skill_data, split='train'):
                     text = copy.deepcopy(template)
 
                     if '<objA>' in template:
-                        # objA = random.choice(object_names)
                         objA = target_shape
-                        # if isinstance(objA, dict):
-                        #     objA = objA['Shape']
+                        
                         if 'human' in objA:
                             objA = metadata["characters"][objA][0]
                             text = text.replace('<objA>', 'human')
@@ -203,8 +154,6 @@ def generate_count_scene(args, metadata, skill_data, split='train'):
                         text = text.replace('<N>', str(n_obj))
 
                     text = camel_to_snake(text)
-
-                    # assert skill_data['n_objects'] == 1
 
                     objects = []
 
@@ -225,8 +174,6 @@ def generate_count_scene(args, metadata, skill_data, split='train'):
                             "state": None
                         }
 
-                        # if isinstance(target_shape, dict):
-                        #     obj['state'] = target_shape["State"][0]
                         if target_shape in obj2states:
                             obj['state'] = obj2states[target_shape][0]
 
@@ -251,11 +198,7 @@ def generate_count_scene(args, metadata, skill_data, split='train'):
     return scenes
 
 def generate_color_scene(args, metadata, skill_data, split='train'):
-    """
-    """
     color_names = metadata['Color']
-
-    # relation_names = metadata['Relation']
 
     obj2states = metadata['State']
 
@@ -272,10 +215,6 @@ def generate_color_scene(args, metadata, skill_data, split='train'):
 
         for i in range(args.n_repeat):
 
-            # n_object_range = skill_data['n_objects'][0], skill_data['n_objects'][1]
-
-            # for n_obj in range(n_object_range[0], n_object_range[1]+1):
-
             for color in color_names:
 
                 objA = None
@@ -285,25 +224,19 @@ def generate_color_scene(args, metadata, skill_data, split='train'):
                     text = copy.deepcopy(template)
 
                     if '<objA>' in template:
-                        # objA = random.choice(object_names)
                         objA = target_shape
-                        # if isinstance(objA, dict):
-                        #     objA = objA['Shape']
+                        
                         if 'human' in objA:
                             objA = metadata["characters"][objA][0]
                             text = text.replace('<objA>', 'human')
                         else:
                             text = text.replace('<objA>', objA)
 
-                    # if '<N>' in template:
-                    #     text = text.replace('<N>', str(n_obj))
 
                     if '<color>' in template:
                         text = text.replace('<color>', color)
 
                     text = camel_to_snake(text)
-
-                    # assert skill_data['n_objects'] == 1
 
                     n_obj = 1
 
@@ -327,8 +260,6 @@ def generate_color_scene(args, metadata, skill_data, split='train'):
                             "state": None
                         }
 
-                        # if isinstance(target_shape, dict):
-                        #     obj['state'] = target_shape["State"][0]
                         if target_shape in obj2states:
                             obj['state'] = obj2states[target_shape][0]
 
@@ -353,10 +284,7 @@ def generate_color_scene(args, metadata, skill_data, split='train'):
     return scenes
 
 def generate_spatial_scene(args, metadata, skill_data, split='train'):
-    """
-    """
-    # color_names = metadata['Color']
-
+    
     relation_names = metadata['Relation']
 
     obj2states = metadata['State']
@@ -373,11 +301,6 @@ def generate_spatial_scene(args, metadata, skill_data, split='train'):
         # "a photo of <N> <objA>s"
 
         for i in range(args.n_repeat):
-
-            # n_object_range = skill_data['n_objects'][0], skill_data['n_objects'][1]
-
-            # for n_obj in range(n_object_range[0], n_object_range[1]+1):
-
             for relation in relation_names:
 
                 objA = None
@@ -389,10 +312,8 @@ def generate_spatial_scene(args, metadata, skill_data, split='train'):
                         text = copy.deepcopy(template)
 
                         if '<objA>' in template:
-                            # objA = random.choice(object_names)
                             objA = objA_shape
-                            # if isinstance(objA, dict):
-                            #     objA = objA['Shape']
+                            
                             if 'human' in objA:
                                 objA = metadata["characters"][objA][0]
                                 text = text.replace('<objA>', 'human')
@@ -400,10 +321,8 @@ def generate_spatial_scene(args, metadata, skill_data, split='train'):
                                 text = text.replace('<objA>', objA)
 
                         if '<objB>' in template:
-                            # objA = random.choice(object_names)
                             objB = objB_shape
-                            # if isinstance(objA, dict):
-                            #     objA = objA['Shape']
+                            
                             if 'human' in objB:
                                 objB = metadata["characters"][objB][0]
                                 text = text.replace('<objB>', 'human')
@@ -411,22 +330,14 @@ def generate_spatial_scene(args, metadata, skill_data, split='train'):
                                 text = text.replace('<objB>', objB)
 
                         if '<rel>' in template:
-                            # objA = random.choice(object_names)
-                            # rel = relation
-                            # if isinstance(objA, dict):
-                            #     objA = objA['Shape']
                             text = text.replace('<rel>', relation)
 
-                            # if relation == 'left':
                             text = text.replace('left', 'left to')
                             text = text.replace('right', 'right to')
 
-                        # if '<N>' in template:
-                        #     text = text.replace('<N>', str(n_obj))
 
                         text = camel_to_snake(text)
 
-                        # assert skill_data['n_objects'] == 1
 
                         n_obj = 2
 
@@ -459,8 +370,6 @@ def generate_spatial_scene(args, metadata, skill_data, split='train'):
                             if shape == 'human':
                                 obj['shape'] = metadata["characters"][shape][0]
 
-                            # if isinstance(target_shape, dict):
-                            #     obj['state'] = target_shape["State"][0]
                             if shape in obj2states:
                                 obj['state'] = obj2states[shape][0]
 
@@ -532,11 +441,6 @@ def main(args):
             split
         )
     print(f'Generated {split} scenes: # {len(scenes)}')
-
-    # for i, scene in enumerate(scenes):
-    #     qid = f'{args.skill_name}_{i}'
-    #     scene['question_id'] = qid
-    #     scene['img_path'] = str(output_image_dir.joinpath(f'{qid}.png'))
 
     scene_file_name = f'{args.skill_name}_{split}.json'
     scene_path = output_dir.joinpath(scene_file_name)
