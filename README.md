@@ -85,7 +85,7 @@ Then follow these steps:
 Now you can click build and then select the file location you wish to save the build.
 
 ## Simulator Modification
-After making a modification you should update `generate_scenes.py` as needed.
+After making a modification you should update `generate_scenes.py` and `data/metadata.json` as needed.
 
 ### Non-Model Modification / Addition
 Select the `SceneManager` Object in the Main scene. This object controls all properties of the simulator.
@@ -102,7 +102,7 @@ Follow these steps:
  - Remove all colliders on the object and its children.
  - Add a `Box Coliider` to the parent object and scale it to fit the model
  - Add a `Rigidbody` to the parent object and under constraints, Check all `Freeze Position` and `Freeze Rotation` options.
- - Add the `Object Info` script to the parent object. If your model has materials on its childern objects, then select the `Has Material On Children` property. Otherwise you can leave it unchecked.
+ - Add the `ObjectInfo` script to the parent object. If your model has materials on its childern objects, then select the `Has Material On Children` property. Otherwise you can leave it unchecked.
  - Save your object as a prefab by dragging it from the Hierarchy view to the Project View.
 
 Select the `SceneManager` Object in the Main scene. This object controls all properties of the simulator.
@@ -116,7 +116,7 @@ Find the model you wish to update and edit the prefab for that model. Ensure you
 ### Spatial Relation Modification / Addition
 To modify or add new spatial relations, you need to edit the code files.
 
-Open `scripts/GenerateScene.cs`. There are 2 places that need to be updated. First, Line 300 (at the time of this document's creation) you need to update this line:
+Open `Assets/Scripts/GenerateScene.cs`. There are 2 places that need to be updated. First, Line 300 (at the time of this document's creation) you need to update this line:
 ```c#
 directions.AddRange(new string[] { "left", "right", "behind", "front", "above", "near", "far" });
 ```
