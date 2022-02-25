@@ -1,4 +1,7 @@
 # PaintSkills Simulator
+* Authors: [Jaemin Cho](https://j-min.io), [Abhay Zala](https://aszala.com/), and [Mohit Bansal](https://www.cs.unc.edu/~mbansal/) (UNC Chapel Hill)
+* [Paper](https://arxiv.org/abs/2202.04053)
+
 Instructions on how to build and edit the PaintSkills Simulator.
 
 The simulator was developed in Unity 2019.4.12f1.
@@ -81,3 +84,17 @@ directions.AddRange(new string[] { "left", "right", "behind", "front", "above", 
 Add or remove any spatial relations you want. Then slightly below this, you will find a series of `if` statements. Add your own or modify the existing one for the relation you want.
 
 When making your own, you can follow the pattern the others follow. Get the position of the `relationObject` and then add your relation to the `relation_pairs` Dictionary. The key should be your relation as a string and then the value should be a new shape object.
+
+# Reference
+Please cite our paper if you use our dataset in your works:
+```bibtex
+
+@article{Cho2022DallEval,
+  title         = {DALL-Eval: Probing the Reasoning Skills and Social Biases of Text-to-Image Generative Transformers},
+  author        = {Jaemin Cho and Abhay Zala and Mohit Bansal},
+  year          = {2022},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  eprint        = {2202.04053}
+}
+```
