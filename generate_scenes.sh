@@ -82,7 +82,7 @@ do
                     --name "$skill_name"_"$split"_"$i" \
                     -v "$scene_output_dir/splits:/home/sim/scenes/" \
                     -v "$image_output_dir:/home/sim/output/" \
-                    objectsim:$docker_image \
+                    paintskillssim:$docker_image \
                     --input /home/sim/scenes/"$skill_name"_"$split"_"$i".json \
                     --savepath "/home/sim/output/"
             done
