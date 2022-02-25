@@ -1,10 +1,16 @@
 # PaintSkills Simulator
-* Authors: [Jaemin Cho](https://j-min.io), [Abhay Zala](https://aszala.com/), and [Mohit Bansal](https://www.cs.unc.edu/~mbansal/) (UNC Chapel Hill)
-* [Paper](https://arxiv.org/abs/2202.04053)
 
-Instructions on how to build and edit the PaintSkills Simulator.
+Instructions on how to build and edit [PaintSkills Simulator](https://arxiv.org/abs/2202.04053) as described in the paper:
 
-The simulator was developed in Unity 2019.4.12f1.
+[**DALL-Eval: Probing the Reasoning Skills and Social Biases of Text-to-Image Generative Transformers**](https://arxiv.org/abs/2202.04053)
+<br>
+ <a href='https://j-min.io'>Jaemin Cho</a>,
+ <a href='https://aszala.com/'>Abhay Zala</a>,
+ <a href='https://www.cs.unc.edu/~mbansal/'>Mohit Bansal</a>
+ (UNC Chapel Hill)
+ <br>
+
+The simulator was developed in [Unity 2019.4.12f1](https://unity3d.com/unity/whats-new/2019.4.12).
 
 ## Generating data
 Either download the pre-built simulator [here](https://drive.google.com/file/d/1opcJJNweB1DZOY4-bP99h5v4wO8e5rvT/view?usp=sharing) or the build it yourself from the source.
