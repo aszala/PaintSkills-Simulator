@@ -1,0 +1,10 @@
+{
+    "skill_name": "object",
+    "special_tokens": [
+        "<objA>"
+    ],
+    "templates": [
+        "a photo of <objA>"
+    ],
+    "n_objects": 1
+}

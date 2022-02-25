@@ -1,0 +1,72 @@
+{
+    "dataset": "VL-Unity-0.1",
+    "Shape": [
+        "human",
+        "airplane",
+        "bike",
+        "bus",
+        "dog",
+        "boat",
+        "van",
+        "train",
+        "fireHydrant",
+        "stopSign",
+        "backpack",
+        "chair",
+        "diningTable",
+        "skateboard",
+        "bench",
+        "suitcase",
+        "trafficLight",
+        "bird",
+        "bear",
+        "bed",
+        "pottedPlant"
+    ],
+    "characters": {
+        "human": [
+            "humanSophie",
+            "humanKate"
+        ]
+    },
+    "State": {
+        "human": [
+            "sitting",
+            null
+        ],
+        "dog": [
+            "standing",
+            "sitting"
+        ],
+        "bird": [
+            "flying",
+            "perched"
+        ],
+        "bear": [
+            "standing",
+            "upright"
+        ]
+    },
+    "Color": [
+        "red",
+        "blue",
+        "yellow",
+        "white",
+        "purple",
+        "green"
+    ],
+    "Texture": [
+        "plain",
+        "dots",
+        "strips"
+    ],
+    "Relation": [
+        "left",
+        "right",
+        "above",
+        "below"
+        ],
+    "Size": ["small", "large"],
+    "Material": ["rubber", "metal"],
+    "Scenes": ["Gareoult", "Kirby Cove", "Muir Woods", "Seaside", "Treasure Island", "Trinitais Church"]
+}

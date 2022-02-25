@@ -1,0 +1,10 @@
+{
+    "skill_name": "color",
+    "special_tokens": [
+        "<objA>",
+        "<color>"
+    ],
+    "templates": [
+        "a photo of <color> <objA>"
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "skill_name": "spatial",
+    "special_tokens": [
+        "<objA>",
+        "<objB>",
+        "<rel>"
+    ],
+    "templates": [
+        "a photo of <objA> and <objB>; <objB> is <rel> <objA>"
+    ]
+}
