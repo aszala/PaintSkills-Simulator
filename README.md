@@ -35,6 +35,39 @@ Then finally generate the bounding boxes for each image with
 bash generate_scenes.sh {skill} 10 box
 ```
 
+Example Scene Generation:
+
+<img src="https://user-images.githubusercontent.com/22106429/155769162-57fb93cf-2a22-49da-82a5-f5171fd6f632.png" width="500px">
+
+Each "scene" must include the various scene properties and a list of objects.
+Given a lits of these "scenes", the simulator will generate a series of images fitting the properties defined.
+
+Here is the scene format:
+```json
+[
+ {
+  "scene": "background environment for the image (e.g. empty)",
+  "skill": "which skill you are trying to generate for (e.g. object)",
+  "text": "the text prompt for this scene (e.g. a photo of two airplanes)",
+  "id": "unique id for this scene (e.g. object_train_00001)",
+  "objects": [
+    {
+     "id": "unique identifier number for this object (e.g. 0)",
+     "shape": "object to be used (e.g. airplane)",
+     "relation": "relation to any other objects based on id number (e.g. 'right_0' means right of object with id 0)",
+     "color": "color of the object (e.g. red)",
+     "scale": "size of the object (e.g. 2.5)",
+     "texture": "texture of object (e.g. plain)",
+     "rotation": "xyz rotation values for the object in degrees (e.g. [100, 50, 20])",
+     "state": "the special state of the object (e.g. 'standing' for a dog)"
+    },
+    ...
+   ]
+ },
+ ...
+]
+```
+
 ## Build
 Go to `File` -> `Build Settings`.
 
