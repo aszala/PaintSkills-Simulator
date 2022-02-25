@@ -20,13 +20,8 @@ if __name__ == '__main__':
     parser.add_argument('--skill_name', type=str, default='object')
     parser.add_argument('--split', type=str, default='train')
     parser.add_argument('--metadata_path', type=str, default='data/metadata.json')
-    # parser.add_argument('--image_dir', type=str,default='../output/object/images')
-    # parser.add_argument('--bbox_dir', type=str, default='../output/object/')
     args = parser.parse_args()
     print(args)
-
-    # image_dir = f'../output/{args.skill_name}/images'
-    # bbox_dir = f'../output/{args.skill_name}'
 
     skill_dir = Path("../../datasets/PaintSkills/").joinpath(args.skill_name)
     image_dir = skill_dir.joinpath("images")
@@ -59,8 +54,6 @@ if __name__ == '__main__':
 
         category_dict[name] = i
 
-
-    # json_files = glob.glob("segmentation_data_*.json")
     json_files = glob.glob(f"{image_dir}/segmentation_data_{args.skill_name}_{args.split}_*.json")
 
     print(next(iter(json_files)))
@@ -75,23 +68,11 @@ if __name__ == '__main__':
 
         segmentation_image = json_file.replace("segmentation_data_", "segmentation_image_").replace(".json", ".png")
 
-        # im = cv2.imread(image)
-        # h, w, _ = im.shape
-
         h, w = 720, 720
 
         image_path = segmentation_image.replace("segmentation_image_", "image_")
         file_name = Path(image_path).name
         image_id = file_name.split('.')[0].split('_')[-1]
-
-        # "license": 5,
-        # "file_name": "COCO_train2014_000000384029.jpg",
-        # "coco_url": "http://images.cocodataset.org/train2014/COCO_train2014_000000384029.jpg",
-        # "height": 429,
-        # "width": 640,
-        # "date_captured": "2013-11-14 16:29:45",
-        # "flickr_url": "http://farm3.staticflickr.com/2422/3577229611_3a3235458a_z.jpg",
-        # "id": 384029
 
         image_dict = {
             'file_name': file_name,
@@ -147,19 +128,9 @@ if __name__ == '__main__':
 
         scene = id2scene[image_id]
 
-        # image_dict = {
-        #     'file_name': file_name,
-        #     'height': h,
-        #     'width': w,
-        #     'id': image_id,
-        # }
-        # temp_images.append(image_dict)
-
         temp_anno = []
         temp_anno.append(
             {"name": "background", "all_points_x": [], "all_points_y": []})
-
-        # image_dict["image"] = image.replace("segmentation_image_", "image")
 
         # data
         # {'airplane0': [1, 161, 131, ['airplane']],
@@ -169,13 +140,6 @@ if __name__ == '__main__':
                 state = data[x][3][1]
             except:
                 state = None
-
-            # if not (i in ids_covered):
-            #     temp_categories.append({
-            #         "id": i,
-            #         "name": data[x][3][0]
-            #     })
-            #     ids_covered.add(i)
 
             shape = data[x][3][0]
 
@@ -200,12 +164,9 @@ if __name__ == '__main__':
                 "all_points_y": [],
                 "color": scene['objects'][i]['color'],
                 "texture": scene['objects'][i]['texture'],
-                # "bbox": [1000000, 1000000, 0, 0]
                 }
             )
             box_id += 1
-
-        # annotations.append(temp_anno)
 
         temp = computeBounds(im, len(temp_anno))
         for i in range(len(temp_anno)):
@@ -219,8 +180,6 @@ if __name__ == '__main__':
         temp_anno = temp_anno[1:]
         annotations.extend(temp_anno)
 
-    # with open(skill_dir.joinpath(f"{args.skill_name.capitalize()}_{args.split}_bounding_boxes_numba.json"), 'w') as f:
-    # with open(skill_dir.joinpath(f"{args.skill_name.capitalize()}_{args.split}_bounding_boxes.json"), 'w') as f:
     with open(skill_dir.joinpath(f"{args.skill_name}_{args.split}_bounding_boxes.json"), 'w') as f:
         json.dump({
             "annotations": annotations,
