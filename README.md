@@ -13,14 +13,14 @@ Instructions on how to build and edit [PaintSkills Simulator](https://arxiv.org/
 The simulator was developed in [Unity 2019.4.12f1](https://unity3d.com/unity/whats-new/2019.4.12).
 
 ## Generating data
-Either download the pre-built simulator [here](https://drive.google.com/file/d/1opcJJNweB1DZOY4-bP99h5v4wO8e5rvT/view?usp=sharing) or the build it yourself from the source.
+Either download the pre-built simulator [here](https://drive.google.com/file/d/1opcJJNweB1DZOY4-bP99h5v4wO8e5rvT/view?usp=sharing) or build it yourself from the source.
 
 Place the built simulator as a zip called `linux_build.zip`.
 The zip should contain a folder called `Linux` and the simulator build should be within this folder.
 
-First build the docker image with
+First, build the docker image with
 ```
-docker build -t objectsim:latest .
+docker build -t paintskillssim:latest .
 ```
 Then generate the JSON input files for each skill {object, color, count, spatial}.
 ```
@@ -57,7 +57,7 @@ After making a modification you should update `generate_scenes.py` as needed.
 ### Non-Model Modification / Addition
 Select the `SceneManager` Object in the Main scene. This object controls all properties of the simulator.
 
-Then expand the drop down for the property you wish to modify or add too. There will be 2 drop downs for each property, one for named `{property}` and the other `{property}_names`. Whenever you add a new value to the property list, also add the cooresponding string name that should be used to refer to it from the JSON input.
+Then expand the drop down for the property you wish to modify or add to. There will be 2 drop downs for each property, one for named `{property}` and the other `{property}_names`. Whenever you add a new value to the property list, also add the corresponding string name that should be used to refer to it from the JSON input.
 
 ### Model Modification / Addition
 
@@ -83,7 +83,7 @@ Find the model you wish to update and edit the prefab for that model. Ensure you
 ### Spatial Relation Modification / Addition
 To modify or add new spatial relations, you need to edit the code files.
 
-Open `scripts/GenerateScene.cs`. There are 2 places that need to be updated. First, Line 289 (at the time of this document's creation) you need to update this line:
+Open `scripts/GenerateScene.cs`. There are 2 places that need to be updated. First, Line 300 (at the time of this document's creation) you need to update this line:
 ```c#
 directions.AddRange(new string[] { "left", "right", "behind", "front", "above", "near", "far" });
 ```
