@@ -5,7 +5,7 @@ Instructions on how to build and edit [PaintSkills Simulator](https://arxiv.org/
 [**DALL-Eval: Probing the Reasoning Skills and Social Biases of Text-to-Image Generative Transformers**](https://arxiv.org/abs/2202.04053)
 <br>
  <a href='https://j-min.io'>Jaemin Cho</a>,
- <a href='https://aszala.com/'>Abhay Zala</a>,
+ <a href='https://www.cs.unc.edu/~aszala/'>Abhay Zala</a>,
  <a href='https://www.cs.unc.edu/~mbansal/'>Mohit Bansal</a>
  (UNC Chapel Hill)
  <br>
@@ -37,7 +37,7 @@ bash generate_scenes.sh {skill} 10 box
 
 Example Scene Generation:
 
-<img src="https://user-images.githubusercontent.com/22106429/155769162-57fb93cf-2a22-49da-82a5-f5171fd6f632.png" width="500px">
+<img src="./imgs/dataset_generation.png" width="500px">
 
 Each "scene" must include the various scene properties and a list of objects.
 Given a lits of these "scenes", the simulator will generate a series of images fitting the properties defined.
